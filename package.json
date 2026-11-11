@@ -1,0 +1,17 @@
+{
+  "name": "criptface",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs",
+    "android:sync": "npm run build && cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "7.6.10",
+    "@capacitor/core": "7.6.10",
+    "@mediapipe/tasks-vision": "0.10.21"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "7.6.10"
+  }
+}

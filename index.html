@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07130e">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>CriptFace</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <script src="recording.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="brand"><span class="brand-icon" aria-hidden="true">◉</span><div><h1>CriptFace</h1><p>Seu vídeo, em outra perspectiva.</p></div></div>
+      <span class="badge">PROCESSAMENTO LOCAL</span>
+    </header>
+    <section class="viewer" aria-label="Imagem da câmera em caracteres">
+      <canvas id="output" aria-label="Imagem da câmera com filtro de caracteres"></canvas>
+      <div id="placeholder" class="placeholder"><span aria-hidden="true">⌁</span><p>Sua câmera aparecerá aqui</p><small>Ligue a câmera para começar</small></div>
+      <span id="recording-indicator" class="recording-indicator" hidden>● GRAVANDO</span>
+    </section>
+    <section class="panel">
+      <div class="buttons">
+        <button id="start" type="button">Ligar câmera</button>
+        <button id="stop" type="button" class="secondary" disabled>Desligar câmera</button>
+      </div>
+      <div class="settings">
+        <div class="setting"><label for="density">Detalhe <output id="density-value" for="density">64 colunas</output></label><input id="density" type="range" min="24" max="120" value="64" step="1"></div>
+        <label class="checkbox"><input id="mirror" type="checkbox" checked> Espelhar imagem</label>
+      </div>
+    </section>
+    <section class="panel" aria-labelledby="record-title">
+      <h2 id="record-title">Gravação protegida</h2>
+      <p>Grave apenas o vídeo filtrado, protegido por senha.</p>
+      <label class="checkbox"><input id="include-audio" type="checkbox" checked> Captar áudio com voz distorcida</label>
+      <label class="field" for="password">Senha da gravação <small>Mínimo de 12 caracteres</small></label>
+      <input id="password" type="password" minlength="12" autocomplete="new-password" placeholder="Crie uma senha forte">
+      <div class="buttons"><button id="record" type="button" disabled>Iniciar gravação</button><button id="record-stop" type="button" class="secondary" disabled>Finalizar gravação</button></div>
+      <p class="hint">A senha não é salva. Sem ela, não será possível abrir a gravação.</p>
+    </section>
+    <section class="panel" aria-labelledby="open-title">
+      <h2 id="open-title">Abrir gravação protegida</h2>
+      <label class="field" for="recording-file">Arquivo criptografado</label>
+      <input id="recording-file" type="file" accept=".ccr,application/octet-stream">
+      <label class="field" for="open-password">Senha da gravação</label>
+      <input id="open-password" type="password" autocomplete="current-password">
+      <div class="buttons"><button id="open-recording" type="button" class="secondary">Abrir gravação</button></div>
+      <video id="playback" controls playsinline hidden></video>
+    </section>
+    <p id="status" class="status" role="status" aria-live="polite">Ligue a câmera para começar.</p>
+    <p class="privacy">O vídeo e o áudio são processados no aparelho. A distorção e a remoção de fundo não garantem anonimato; partes do fundo podem aparecer.</p>
+    <video id="video" playsinline muted hidden></video>
+  </main>
+</body>
+</html>
